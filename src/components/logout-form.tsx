@@ -18,10 +18,8 @@ export function LogoutForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Account Settings</CardTitle>
-          <CardDescription>
-            Ready to leave? You can log back in anytime
-          </CardDescription>
+          <CardTitle className="text-xl">Log out</CardTitle>
+          <CardDescription>You can log back in anytime</CardDescription>
         </CardHeader>
         <CardContent>
           <form

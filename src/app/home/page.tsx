@@ -1,14 +1,30 @@
-export default function HomePage() {
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+
+import { auth } from "@/server/auth";
+import { redirect } from "next/navigation";
+
+export default async function Page() {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <h1 className="text-center text-2xl font-bold">
-          Welcome to ScacchiOnline
-        </h1>
-        <p className="text-center text-sm text-muted-foreground">
-          Your online chess platform
-        </p>
-      </div>
-    </div>
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar session={session} variant="inset" />
+      <SidebarInset>
+        <SiteHeader />
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
